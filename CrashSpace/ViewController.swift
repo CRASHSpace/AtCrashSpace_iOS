@@ -10,6 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    
+    var userDefaults = NSUserDefaults.standardUserDefaults()
+    
+    
+
     // Url to get the current status
     // and to send updates to
     let url = "https://crashspacela.com/sign/"
@@ -52,6 +57,19 @@ class ViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // Loads the user and message to local memory from past load.
+        // needs to be fixed to work correctly
+        if let userText: AnyObject = userDefaults.valueForKey("userName") {
+            user.text = userText.string
+        }
+        if let messageText: AnyObject = userDefaults.valueForKey("message") {
+            message.text = messageText.string
+        }
+
+        
+        
         //call the updateWebView url
         self.loadWebView("")
     }
@@ -78,6 +96,19 @@ class ViewController: UIViewController {
         let requestURL = NSURL(string:urlString)
         let request = NSURLRequest(URL: requestURL!)
         webView.loadRequest(request)
+        
+        
+        // Save the user and message to local memory for next load.
+        // needs to be fixed to work correctly
+        if(user.text != nil){
+            userDefaults.setValue(user.text, forKey: "userName")
+            userDefaults.synchronize()
+        }
+        
+        if(message.text != nil){
+            userDefaults.setValue(message.text, forKey: "message")
+            userDefaults.synchronize()
+        }
     }
     
     
