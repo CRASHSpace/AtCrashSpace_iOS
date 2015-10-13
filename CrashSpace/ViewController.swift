@@ -91,7 +91,22 @@ class ViewController: UIViewController {
      */
 
     @IBAction func checkIn(sender: AnyObject) {
-        let urlString =  "\(url)?id=\(user.text!)&msg=\(message.text!)&type=iOS&diff_mins_max=\(sliderMins.text!)&debug=1"
+        var userText = NSString()
+        var messageText = NSString()
+        
+        if(user.text != nil){
+            userText = user.text!
+        }
+        else{
+            userText = " "
+        }
+        if(message.text != nil){
+            messageText = message.text!
+        }
+        else{
+            messageText = " "
+        }
+        let urlString =  "\(url)?id=\(userText)&msg=\(messageText)&type=iOS&diff_mins_max=\(sliderMins.text!)&debug=1"
         
         let requestURL = NSURL(string:urlString)
         let request = NSURLRequest(URL: requestURL!)
